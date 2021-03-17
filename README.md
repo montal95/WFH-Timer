@@ -3,6 +3,6 @@ Creating an app that reminds the user to take breaks from work related applicati
 
 ## Get started
 - Install all packages with
-    npm install
+```npm install```
 - When installation is complete, run electron with
-    npm start
+```npm start```
