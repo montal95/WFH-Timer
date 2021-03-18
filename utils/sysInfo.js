@@ -8,12 +8,17 @@ const valueObject = {
   processes: "list",
 };
 
-const zoomLogger = (data) => {
+const zoomLog = (data) => {
   // console.log(data.processes.list)
-  const zoomRunning = data.processes.list.find(
+  const zoomStatus = data.processes.list.find(
     (runningProcces) => runningProcces.name === "zoom.us"
   );
-  console.log(zoomRunning ? "active" : "inactive");
+
+  console.log(zoomStatus.state);
 };
-// si.get(valueObject, zoomLogger)
-si.observe(valueObject, 1000, zoomLogger);
+
+module.exports = {
+  zoomObserver: () => si.observe(valueObject, 1000, zoomLog),
+
+  stopObserver: () => clearTimeout(si.observe(valueObject, 1000, zoomLog)),
+};

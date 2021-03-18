@@ -1,4 +1,7 @@
 // Modules to control application life and create native browser window
+const zoomObserver = require("./utils/sysInfo").zoomObserver;
+const stopObserver = require("./utils/sysInfo").stopObserver;
+
 const { app, BrowserWindow, Menu } = require("electron");
 const path = require("path");
 
@@ -110,6 +113,9 @@ function createWindow() {
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
+  //Zoom observer runs only when the window is open
+  zoomObserver();
+
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
 }
@@ -132,4 +138,10 @@ app.whenReady().then(() => {
 // explicitly with Cmd + Q.
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") app.quit();
+});
+
+app.on("quit", function () {
+  //Zoom observer stops on close
+  stopObserver();
+  console.log("stop observing");
 });
