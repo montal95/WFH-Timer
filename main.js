@@ -3,9 +3,23 @@ const { app, BrowserWindow, Menu } = require("electron");
 const path = require("path");
 const si = require("systeminformation");
 
-si.processes().then((data) =>
-  console.log(data.list.find((element) => element.name === "zoom.us").state)
-);
+// si.processes().then((data) =>
+//   console.log(data.list.find((element) => element.name === "zoom.us").state)
+// );
+
+const valueObject = {
+  processes: "list",
+};
+
+const zoomLogger = (data) => {
+  // console.log(data.processes.list)
+  const zoomRunning = data.processes.list.find(
+    (runningProcces) => runningProcces.name === "zoom.us"
+  );
+  console.log(zoomRunning ? "active" : "inactive");
+};
+// si.get(valueObject, zoomLogger)
+si.observe(valueObject, 1000, zoomLogger);
 
 function createWindow() {
   // Create the browser window.
@@ -19,7 +33,99 @@ function createWindow() {
 
   // and load the ReactApp of the app.
   mainWindow.loadURL("http://localhost:3000/");
-  const template = [];
+
+  //Template for menu at the top of the screen
+  const isMac = process.platform === "darwin";
+  const template = [
+    // { role: 'appMenu' }
+    ...(isMac
+      ? [
+          {
+            label: app.name,
+            submenu: [
+              { role: "about" },
+              { type: "separator" },
+              { role: "services" },
+              { type: "separator" },
+              { role: "hide" },
+              { role: "hideothers" },
+              { role: "unhide" },
+              { type: "separator" },
+              { role: "quit" },
+            ],
+          },
+        ]
+      : []),
+    // { role: 'fileMenu' }
+    {
+      label: "File",
+      submenu: [isMac ? { role: "close" } : { role: "quit" }],
+    },
+    // { role: 'editMenu' }
+    {
+      label: "Edit",
+      submenu: [
+        { role: "cut" },
+        { role: "copy" },
+        { role: "paste" },
+        ...(isMac
+          ? [
+              { role: "pasteAndMatchStyle" },
+              { role: "delete" },
+              { role: "selectAll" },
+              { type: "separator" },
+              {
+                label: "Speech",
+                submenu: [{ role: "startSpeaking" }, { role: "stopSpeaking" }],
+              },
+            ]
+          : [{ role: "delete" }, { type: "separator" }, { role: "selectAll" }]),
+      ],
+    },
+    // { role: 'viewMenu' }
+    {
+      label: "View",
+      submenu: [
+        { role: "reload" },
+        { role: "forceReload" },
+        { role: "toggleDevTools" },
+        { type: "separator" },
+        { role: "resetZoom" },
+        { role: "zoomIn" },
+        { role: "zoomOut" },
+        { type: "separator" },
+        { role: "togglefullscreen" },
+      ],
+    },
+    // { role: 'windowMenu' }
+    {
+      label: "Window",
+      submenu: [
+        { role: "minimize" },
+        { role: "zoom" },
+        ...(isMac
+          ? [
+              { type: "separator" },
+              { role: "front" },
+              { type: "separator" },
+              { role: "window" },
+            ]
+          : [{ role: "close" }]),
+      ],
+    },
+    {
+      role: "help",
+      submenu: [
+        {
+          label: "Learn More",
+          click: async () => {
+            const { shell } = require("electron");
+            await shell.openExternal("https://electronjs.org");
+          },
+        },
+      ],
+    },
+  ];
   const menu = Menu.buildFromTemplate(template);
   Menu.setApplicationMenu(menu);
 
