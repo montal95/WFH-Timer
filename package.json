@@ -1,15 +1,43 @@
 {
-  "name": "WFH-Timer",
-  "version": "1.0.0",
+  "name": "wfh-timer",
+  "version": "0.1.0",
+  "private": true,
   "description": "Creating an app that reminds the user to take breaks from work related applications",
   "main": "main.js",
-  "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-scripts": "4.0.3",
+    "systeminformation": "^5.6.7",
+    "web-vitals": "^1.0.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/montal95/WFH-Timer.git"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "electron": "electron ."
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "keywords": [],
   "author": "Sam Montalvo",
@@ -17,11 +45,11 @@
   "bugs": {
     "url": "https://github.com/montal95/WFH-Timer/issues"
   },
-  "homepage": "https://github.com/montal95/WFH-Timer#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/montal95/WFH-Timer.git"
+  },
   "devDependencies": {
     "electron": "^12.0.1"
-  },
-  "dependencies": {
-    "systeminformation": "^5.6.7"
   }
 }
