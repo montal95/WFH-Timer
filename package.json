@@ -1,25 +1,46 @@
 {
   "name": "zoom-timer",
+  "author": "Sam Montalvo",
   "version": "0.1.0",
   "private": true,
+  "build": {
+    "appId": "com.Knackathon.zoomtimer",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
+  "homepage": "./",
   "description": "Creating an app that reminds the user to take breaks from work related applications",
   "main": "main.js",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "electron-is-dev": "^2.0.0",
+    "firebase": "^8.3.0",
+    "firebase-admin": "^9.5.0",
+    "firebase-functions": "^3.13.2",
+    "firebaseui": "^4.8.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-firebaseui": "^4.1.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "systeminformation": "^5.6.7",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "react-build": "react-scripts build",
+    "electron-build": "build --em.main=build/electron.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "electron": "electron ."
+    "electron": "electron .",
+    "dev": "concurrently \"yarn start\" \"wait-on http://localhost:3000 && yarn electron\""
   },
   "eslintConfig": {
     "extends": [
@@ -40,7 +61,6 @@
     ]
   },
   "keywords": [],
-  "author": "Sam Montalvo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/montal95/WFH-Timer/issues"
@@ -50,6 +70,8 @@
     "url": "git+https://github.com/montal95/WFH-Timer.git"
   },
   "devDependencies": {
-    "electron": "^12.0.1"
+    "electron": "^12.0.1",
+    "wait-on": "^5.3.0",
+    "concurrently": "^6.0.0"
   }
 }
