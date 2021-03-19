@@ -1,7 +1,19 @@
 {
   "name": "zoom-timer",
+  "author": "Sam Montalvo",
   "version": "0.1.0",
   "private": true,
+  "build": {
+    "appId": "com.Knackathon.zoomtimer",
+    "files": [
+      "build/**/*",
+      "node_modules/**/*"
+    ],
+    "directories": {
+      "buildResources": "assets"
+    }
+  },
+  "homepage": "./",
   "description": "Creating an app that reminds the user to take breaks from work related applications",
   "main": "main.js",
   "dependencies": {
@@ -16,7 +28,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "react-build": "react-scripts build",
+    "electron-build": "build --em.main=build/electron.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "electron": "electron ."
@@ -40,7 +53,6 @@
     ]
   },
   "keywords": [],
-  "author": "Sam Montalvo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/montal95/WFH-Timer/issues"
