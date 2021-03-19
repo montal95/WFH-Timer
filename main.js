@@ -1,6 +1,6 @@
 // Modules to control application life and create native browser window
 const { app, BrowserWindow, Menu } = require("electron");
-const isDev = require('electron-is-dev');
+const isDev = require("electron-is-dev");
 const path = require("path");
 
 function createWindow() {
@@ -9,11 +9,15 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
+      nodeIntegration: true,
+      nativeWindowOpen: true,
       preload: path.join(__dirname, "preload.js"),
     },
   });
 
-  const startURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`;
+  const startURL = isDev
+    ? "http://localhost:3000"
+    : `file://${path.join(__dirname, "../build/index.html")}`;
   // and load the ReactApp of the app.
   mainWindow.loadURL(startURL);
 
