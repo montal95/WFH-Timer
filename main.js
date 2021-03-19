@@ -3,6 +3,7 @@ const zoomObserver = require("./utils/sysInfo").zoomObserver;
 const stopObserver = require("./utils/sysInfo").stopObserver;
 
 const { app, BrowserWindow, Menu } = require("electron");
+const isDev = require('electron-is-dev');
 const path = require("path");
 
 function createWindow() {
@@ -15,8 +16,9 @@ function createWindow() {
     },
   });
 
+  const startURL = isDev ? 'http://localhost:3000' : `file://${path.join(__dirname, '../build/index.html')}`;
   // and load the ReactApp of the app.
-  mainWindow.loadURL("http://localhost:3000/");
+  mainWindow.loadURL(startURL);
 
   //Template for menu at the top of the screen
   const isMac = process.platform === "darwin";

@@ -1,21 +1,28 @@
+import React, { useEffect } from 'react'
+import firebase from 'firebase'
+import { Switch, Route } from 'react-router-dom'
+
 import './App.css';
 
-function App() {
+import Login from './components/Login';
+import Profile from './components/Profile';
+
+const App = () => {
+  if (firebase.auth().currentUser === null) {
+    return (
+      <div className="App">
+        <Switch>
+          <Route path='/' component={Login} />
+        </Switch>
+      </div>
+    )
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+        <Route path='/profile' component={Profile} />
+      </Switch>
     </div>
   );
 }
