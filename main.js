@@ -2,6 +2,8 @@
 const { app, BrowserWindow, Menu } = require("electron");
 const isDev = require("electron-is-dev");
 const path = require("path");
+const si = require("systeminformation");
+const zoomLogger = require("./utils/sysInfo").zoomLogger;
 
 function createWindow() {
   // Create the browser window.
@@ -130,6 +132,7 @@ app.whenReady().then(() => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
+    si.observe(valueObject, 1000, zoomLogger);
   });
 });
 
